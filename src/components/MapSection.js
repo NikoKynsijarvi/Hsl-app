@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactMapGl, { Marker } from "react-map-gl";
+import ReactMapGl, { Marker } from "!react-map-gl";
 import { gql, useQuery } from "@apollo/client";
 import { FaTrain, FaBus, FaSubway, FaLocationArrow } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
