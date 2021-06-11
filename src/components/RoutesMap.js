@@ -21,7 +21,7 @@ const ALL_ROUTES = gql`
 
 function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
   const result = useQuery(ALL_ROUTES);
-  const env = runtimeEnv();
+
   if (result.loading) {
     return <div>loading...</div>;
   }
