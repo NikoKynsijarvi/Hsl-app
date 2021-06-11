@@ -1,6 +1,7 @@
 import ReactMapGl, { Marker } from "react-map-gl";
 import { gql, useQuery } from "@apollo/client";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import mapboxgl from "mapbox-gl";
 
 require("dotenv").config();
 
@@ -21,6 +22,10 @@ const ALL_ROUTES = gql`
 
 function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
   const result = useQuery(ALL_ROUTES);
+  /* eslint-disable */
+  mapboxgl.workerClass =
+    require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+  /* eslint-enable */
 
   if (result.loading) {
     return <div>loading...</div>;
