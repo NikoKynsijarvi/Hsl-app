@@ -28,7 +28,7 @@ function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
   /* eslint-enable */
 
   if (result.loading) {
-    return <div>loading...</div>;
+    return <div>loading....</div>;
   }
   setAllRoutes(result.data.routes);
 
