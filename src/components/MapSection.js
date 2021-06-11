@@ -46,6 +46,7 @@ function MapSection({
 }) {
   const result = useQuery(ALL_STATIONS);
   const [userLocation, setUserLocation] = useState({ show: false });
+  const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
   if (result.loading) {
     return <div>loading...</div>;
@@ -78,7 +79,7 @@ function MapSection({
       <ReactMapGl
         className="map"
         {...viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapboxApiAccessToken={TOKEN}
         mapStyle="mapbox://styles/niksu98/ckp6mewtr7fni18otmkpslbbs"
         onViewportChange={(viewport) => {
           setViewport(viewport);
