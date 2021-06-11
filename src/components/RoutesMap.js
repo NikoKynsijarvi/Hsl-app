@@ -1,6 +1,7 @@
 import ReactMapGl, { Marker } from "react-map-gl";
 import { gql, useQuery } from "@apollo/client";
 import { FaMapMarkerAlt } from "react-icons/fa";
+import runtimeEnv from "@mars/heroku-js-runtime-env";
 require("dotenv").config();
 
 const ALL_ROUTES = gql`
@@ -20,7 +21,7 @@ const ALL_ROUTES = gql`
 
 function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
   const result = useQuery(ALL_ROUTES);
-
+  const env = runtimeEnv();
   if (result.loading) {
     return <div>loading...</div>;
   }
@@ -32,7 +33,7 @@ function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
       <ReactMapGl
         className="map"
         {...viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapboxApiAccessToken={env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/niksu98/ckp6mewtr7fni18otmkpslbbs"
         onViewportChange={(viewport) => {
           setViewport(viewport);

@@ -48,7 +48,6 @@ function MapSection({
   const result = useQuery(ALL_STATIONS);
   const [userLocation, setUserLocation] = useState({ show: false });
   const env = runtimeEnv();
-  const TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
   if (result.loading) {
     return <div>loading...</div>;
