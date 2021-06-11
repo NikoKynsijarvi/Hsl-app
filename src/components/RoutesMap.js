@@ -1,7 +1,7 @@
 import ReactMapGl, { Marker } from "react-map-gl";
 import { gql, useQuery } from "@apollo/client";
 import { FaMapMarkerAlt } from "react-icons/fa";
-import runtimeEnv from "@mars/heroku-js-runtime-env";
+
 require("dotenv").config();
 
 const ALL_ROUTES = gql`

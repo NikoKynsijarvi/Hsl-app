@@ -4,7 +4,7 @@ import { gql, useQuery } from "@apollo/client";
 import { FaTrain, FaBus, FaSubway, FaLocationArrow } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import "./../index.css";
-import runtimeEnv from "@mars/heroku-js-runtime-env";
+
 
 require("dotenv").config();
 
@@ -47,7 +47,7 @@ function MapSection({
 }) {
   const result = useQuery(ALL_STATIONS);
   const [userLocation, setUserLocation] = useState({ show: false });
-
+  console.log(process.env.REACT_APP_MAPBOX_TOKEN);
   if (result.loading) {
     return <div>loading...</div>;
   }
