@@ -4,7 +4,8 @@ import { gql, useQuery } from "@apollo/client";
 import { FaTrain, FaBus, FaSubway, FaLocationArrow } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import "./../index.css";
-
+import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "mapbox-gl";
 
 require("dotenv").config();
 
@@ -47,7 +48,11 @@ function MapSection({
 }) {
   const result = useQuery(ALL_STATIONS);
   const [userLocation, setUserLocation] = useState({ show: false });
-  console.log(process.env.REACT_APP_MAPBOX_TOKEN);
+
+  /* eslint-disable */
+  mapboxgl.workerClass =
+    require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+  /* eslint-enable */
   if (result.loading) {
     return <div>loading...</div>;
   }
