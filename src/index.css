@@ -248,3 +248,126 @@ body {
   width: 25px;
   height: 25px;
 }
+
+@media only screen and (max-width: 600px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+  .stationslist {
+    height: 300px;
+    width: 100%;
+    margin-top: 5px;
+
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+  .stationname {
+    margin-left: none;
+  }
+  .stationsul {
+    left: 0;
+    padding: 0%;
+    margin: 0%;
+  }
+
+  .allstations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .filtersearch {
+    margin-top: 10px;
+    width: 400px;
+    height: 50px;
+
+    margin-left: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .map {
+    margin: 2px;
+    width: 100%;
+  }
+  .singlestation {
+    width: 80%;
+    margin-left: 5%;
+    border: 2px solid rgb(54, 51, 51);
+    border-radius: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 20px;
+    padding-right: 30px;
+    position: relative;
+  }
+  .filterscontainer {
+    background-color: rgb(87, 179, 102, 0.9);
+    border-radius: 10%;
+    width: 400px;
+    height: 400px;
+    margin-left: 20%;
+    position: absolute;
+    top: 0;
+    margin-top: 50px;
+    right: 0;
+    display: grid;
+    place-content: center;
+    row-gap: 5px;
+  }
+  .routecontainer {
+    height: 250px;
+    width: 350px;
+    border-radius: 10%;
+
+    margin-right: 15%;
+    margin-top: 60%;
+
+    background-color: rgb(255, 255, 255, 0.7);
+    position: absolute;
+    display: grid;
+    justify-content: center;
+  }
+  .routename {
+    color: var(--green);
+    height: 30px;
+  }
+  .routeslist {
+    margin-top: 2px;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 150px;
+    width: 300px;
+  }
+  .stopicon {
+    height: 15px;
+    width: 15px;
+    color: var(--green);
+  }
+  .arrowicon {
+    color: var(--green);
+  }
+
+  .routestop {
+    display: grid;
+    place-items: center;
+  }
+  .stop {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 5px;
+  }
+  .dotsicon {
+    color: var(--green);
+    width: 15px;
+    height: 15px;
+  }
+  .plusicon {
+    width: 20px;
+    height: 20px;
+  }
+}

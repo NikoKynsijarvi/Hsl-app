@@ -22,6 +22,7 @@ function App() {
     latitude: 60.170556,
     longitude: 24.941463,
     zoom: 11,
+
     width: "700px",
     height: "500px",
     transitionDuration: 2000,
