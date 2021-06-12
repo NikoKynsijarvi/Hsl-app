@@ -32,6 +32,15 @@ function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
   }
   setAllRoutes(result.data.routes);
 
+  if (route) {
+    console.log(
+      route.stops.map((r) => {
+        let coors = [r.lat, r.lon];
+        return coors;
+      })
+    );
+  }
+
   const style = { color: "red" };
   return (
     <div className="mapSection">
@@ -47,7 +56,7 @@ function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
         }}
       >
         {route
-          ? route.stops.map((r) => (
+          ? [...route.stops].splice(0, route.stops.length / 2 + 1).map((r) => (
               <Marker key={r.gtfsId} latitude={r.lat} longitude={r.lon}>
                 <FaMapMarkerAlt style={style} />
               </Marker>

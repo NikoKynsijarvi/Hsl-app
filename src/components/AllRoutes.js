@@ -9,6 +9,12 @@ function Route({ route, FaPlus, setRoute, viewport, setViewport }) {
         className="plusicon"
         onClick={(e) => {
           e.preventDefault();
+          setViewport({
+            ...viewport,
+            latitude: route.stops[0].lat,
+            longitude: route.stops[0].lon,
+            zoom: 12,
+          });
           setRoute(route);
         }}
       >

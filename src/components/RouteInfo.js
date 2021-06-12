@@ -12,7 +12,7 @@ function Stop({ stop, setViewport, viewport }) {
             ...viewport,
             latitude: stop.lat,
             longitude: stop.lon,
-            zoom: 13,
+            zoom: 14,
           })
         }
       >
@@ -26,12 +26,14 @@ function Stop({ stop, setViewport, viewport }) {
 }
 
 function RouteInfo({ route, setRoute, setViewport, viewport }) {
+  let stops = [...route.stops];
+
   return (
     <div className="routecontainer">
       <h2 className="routename">{route.longName}</h2>
       <div>
         <nav className="routeslist">
-          {route.stops.map((r) => (
+          {stops.splice(0, stops.length / 2 + 1).map((r) => (
             <Stop stop={r} setViewport={setViewport} viewport={viewport} />
           ))}
         </nav>
