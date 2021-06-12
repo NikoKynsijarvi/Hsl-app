@@ -36,7 +36,7 @@ function RouteInfo({ route, setRoute, setViewport, viewport }) {
           ))}
         </nav>
       </div>
-      <div>
+      <div className="backicon">
         <FaArrowLeft
           className="plusicon"
           onClick={(e) => {

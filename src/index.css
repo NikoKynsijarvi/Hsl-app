@@ -5,6 +5,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
 }
 
 .content {
@@ -14,7 +15,6 @@ body {
 .mapSection {
   width: 60%;
   height: 100%;
-
   position: relative;
   display: grid;
   place-items: center;
@@ -222,6 +222,25 @@ body {
   height: 300px;
   width: 300px;
 }
+.allroutecontainer {
+  height: 500px;
+  width: 500px;
+  border-radius: 10%;
+  right: 0;
+  margin-top: 1%;
+  margin-right: 2%;
+  background-color: rgb(255, 255, 255, 0.7);
+  position: absolute;
+  display: flexbox;
+  justify-content: center;
+}
+.allrouteslist {
+  top: 0;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 400px;
+  width: 500px;
+}
 .stopicon {
   height: 25px;
   width: 25px;
@@ -276,9 +295,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
   .filtersearch {
-    margin-top: 10px;
+    margin-top: 10%;
     width: 400px;
     height: 50px;
 
@@ -369,5 +389,67 @@ body {
   .plusicon {
     width: 20px;
     height: 20px;
+  }
+  .allroutecontainer {
+    height: 300px;
+    width: 100%;
+    border-radius: 10%;
+    right: 0;
+    margin-top: 1%;
+    margin-right: 2%;
+    background-color: rgb(255, 255, 255, 0.7);
+    position: relative;
+    display: flexbox;
+    justify-content: center;
+  }
+  .allrouteslist {
+    top: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 200px;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+  .filterscontainer {
+    background-color: rgb(87, 179, 102, 0.9);
+    border-radius: 10%;
+    width: 90vw;
+    height: 90vh;
+    margin-left: 0%;
+    position: absolute;
+    margin-right: 0%;
+    display: grid;
+    place-content: center;
+    row-gap: 5px;
+  }
+  .routecontainer {
+    height: 280px;
+    width: 350px;
+    border-radius: 10%;
+    position: absolute;
+    margin-right: 5%;
+    margin-top: 80%;
+
+    background-color: rgb(255, 255, 255, 0.7);
+    position: absolute;
+    display: grid;
+    justify-content: center;
+  }
+
+  .routestop {
+    width: 100%;
+  }
+
+  .routename {
+    font-size: 20px;
+  }
+
+  .backicon {
+    margin-left: 45%;
   }
 }

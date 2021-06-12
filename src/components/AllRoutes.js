@@ -1,4 +1,5 @@
 import "./../index.css";
+import React, { useState } from "react";
 
 function Route({ route, FaPlus, setRoute, viewport, setViewport }) {
   return (
@@ -25,17 +26,30 @@ function AllRoutes({
   viewport,
   setViewport,
 }) {
+  const [search, setSearch] = useState("");
+
+  const searchedRoutes = allRoutes.filter((element) => {
+    const routeName = element.longName;
+    return routeName.toLowerCase().indexOf(search.toLowerCase()) > -1;
+  });
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
   return (
-    <div>
+    <div className="allroutecontainer">
       <form className="filtersearch">
         {FaSearch}
         <div>
-          <input className="searchinput" />
+          <input
+            className="searchinput"
+            value={search}
+            onChange={handleSearch}
+          />
         </div>
       </form>
-      <nav className="stationslist">
+      <nav className="allrouteslist">
         <div>
-          {allRoutes.map((r) => (
+          {searchedRoutes.map((r) => (
             <ul key={r.id}>
               <Route
                 key={r.id}

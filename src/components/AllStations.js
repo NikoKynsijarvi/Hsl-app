@@ -64,7 +64,7 @@ function AllStations({
     return stationName.toLowerCase().indexOf(search.toLowerCase()) > -1;
   });
 
-  const handleStationSearch = (event) => {
+  const handleSearch = (event) => {
     setSearch(event.target.value);
   };
 
@@ -76,7 +76,7 @@ function AllStations({
           <input
             className="searchinput"
             value={search}
-            onChange={handleStationSearch}
+            onChange={handleSearch}
           />
         </div>
       </form>

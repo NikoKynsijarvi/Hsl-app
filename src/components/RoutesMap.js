@@ -38,6 +38,8 @@ function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
       <ReactMapGl
         className="map"
         {...viewport}
+        width="98vw"
+        height="97vh"
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/niksu98/ckp6mewtr7fni18otmkpslbbs"
         onViewportChange={(viewport) => {
