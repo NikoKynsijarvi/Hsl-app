@@ -287,15 +287,80 @@ body {
 .tripcontainer {
   position: absolute;
   display: flex;
+  align-items: center;
   justify-content: center;
-  width: 600px;
+  width: 700px;
   height: 500px;
+
   background-color: #fff;
   border: 2px solid black;
-  border-radius: 10%;
+  border-radius: 20%;
   margin-left: 20%;
   z-index: 3;
+  flex-direction: column;
 }
+
+.searchcontainer {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-items: flex-end;
+}
+
+.tripbuttons {
+  margin-top: 10px;
+  width: 120px;
+  display: flex;
+
+  justify-content: space-between;
+}
+.searchbutton {
+  width: 60px;
+  height: 40px;
+  padding: none;
+  background-color: #fff;
+  border: 2px solid black;
+}
+
+.buttonicon {
+  width: 25px;
+  height: 25px;
+  color: var(--green);
+}
+
+.fromtosearch {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  column-gap: 10px;
+}
+
+.filteredStations {
+  height: 200px;
+}
+
+.onestationcontainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.arrowright {
+  top: 0;
+  width: 30px;
+  height: 30px;
+  color: var(--green);
+}
+.tripreview {
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
 /* ////////////////////////////////////////////////////////////// */
 
 @media only screen and (max-width: 600px) {

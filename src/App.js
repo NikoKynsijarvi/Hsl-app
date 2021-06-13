@@ -29,6 +29,10 @@ function App() {
     transitionDuration: 2000,
     transitionInterpolator: new FlyToInterpolator(),
   });
+  const [tripCoords, setTripCoords] = useState({
+    from: { lat: null, lon: null },
+    to: { lat: null, lon: null },
+  });
 
   useEffect(() => {
     route
@@ -59,11 +63,19 @@ function App() {
           <Route exact path="/">
             <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
             <div className="content">
+              {tripOpen ? (
+                <TripPlanning
+                  allStations={allStations}
+                  setTripOpen={setTripOpen}
+                />
+              ) : null}
               <MapSection
                 setStation={setStation}
                 setAllStations={setAllStations}
                 setViewport={setViewport}
                 viewport={viewport}
+                setTripCoords={setTripCoords}
+                tripCoords={tripCoords}
               />
               <div>
                 {station ? (
@@ -97,6 +109,8 @@ function App() {
                 link={"/routes"}
                 icon={<FaRoute className="routeicon" />}
                 station={station}
+                tripOpen={tripOpen}
+                setTripOpen={setTripOpen}
               />
             ) : null}
           </Route>
@@ -109,7 +123,7 @@ function App() {
                 setViewport={setViewport}
                 setAllRoutes={setAllRoutes}
               />
-              {tripOpen ? <TripPlanning /> : null}
+
               {route ? (
                 <RouteInfo
                   route={route}
@@ -141,8 +155,6 @@ function App() {
                 navOpen={navOpen}
                 text={"Stations"}
                 link={"/"}
-                tripOpen={tripOpen}
-                setTripOpen={setTripOpen}
                 icon={<FaBuilding className="routeicon" />}
               />
             ) : null}

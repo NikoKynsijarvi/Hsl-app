@@ -45,6 +45,8 @@ function MapSection({
   setViewport,
   lat,
   lon,
+  setTripCoords,
+  tripCoords,
 }) {
   const result = useQuery(ALL_STATIONS);
   const [userLocation, setUserLocation] = useState({ show: false });

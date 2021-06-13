@@ -63,6 +63,9 @@ function Filters({
     if (station) {
       setStation(null);
     }
+    if (tripOpen) {
+      setTripOpen(false);
+    }
 
     setViewport({
       latitude: 60.170556,
@@ -77,7 +80,6 @@ function Filters({
 
   const clickedTrip = () => {
     setNavOpen(false);
-    console.log(tripOpen);
     setTripOpen(!tripOpen);
   };
 
@@ -91,17 +93,18 @@ function Filters({
       </Link>
 
       {text === "Routes" ? (
-        <div className="toroutes" onClick={(e) => filterNearest(e)}>
-          <h2>Nearest</h2>
-          <FaSearchLocation className="routeicon" />
+        <div>
+          <div className="toroutes" onClick={(e) => filterNearest(e)}>
+            <h2>Nearest</h2>
+            <FaSearchLocation className="routeicon" />
+          </div>
+          <div className="toroutes" onClick={clickedTrip}>
+            {" "}
+            <h2>Plan trip</h2>
+            <FaMapMarked className="routeicon" />
+          </div>
         </div>
-      ) : (
-        <div className="toroutes" onClick={clickedTrip}>
-          {" "}
-          <h2>Plan trip</h2>
-          <FaMapMarked className="routeicon" />
-        </div>
-      )}
+      ) : null}
     </div>
   );
 }
