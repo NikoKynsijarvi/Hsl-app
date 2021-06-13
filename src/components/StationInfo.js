@@ -19,15 +19,14 @@ function GetIcon(props) {
 
 function StationInfo({ station, setStation, viewport, setViewport }) {
   return (
-    <div>
-      <h1>{station.name}</h1>
+    <div className="stationcontainer">
+      <h1 className="routename">{station.name}</h1>
       <p>Zone: {station.zoneId}</p>
       <p>
         Type of vehicle: {station.vehicleMode} {GetIcon(station)}
       </p>
-      <p>
-        Location of station, latitude: {station.lat}, longitude: {station.lon}
-      </p>
+      <p>Latitude: {station.lat}</p>
+      <p>Longitude: {station.lon}</p>
       <FaArrowLeft
         className="plusicon"
         onClick={(e) => {

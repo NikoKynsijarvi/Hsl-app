@@ -69,7 +69,7 @@ function AllStations({
   };
 
   return (
-    <div className="allstations">
+    <div className="allroutecontainer">
       <form className="filtersearch">
         <FaSearch className="searchicon" />
         <div>
@@ -80,7 +80,7 @@ function AllStations({
           />
         </div>
       </form>
-      <nav className="stationslist">
+      <nav className="allrouteslist">
         <div>
           {searchedStations.map((s) => (
             <ul className="stationsul" key={s.id}>

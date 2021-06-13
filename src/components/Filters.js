@@ -1,5 +1,5 @@
 import React from "react";
-import { FaSearchLocation } from "react-icons/fa";
+import { FaMapMarked, FaSearchLocation } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import * as geolib from "geolib";
 
@@ -17,6 +17,8 @@ function Filters({
   setRoute,
   route,
   station,
+  tripOpen,
+  setTripOpen,
 }) {
   const filterNearest = (event) => {
     event.preventDefault();
@@ -73,6 +75,12 @@ function Filters({
     });
   };
 
+  const clickedTrip = () => {
+    setNavOpen(false);
+    console.log(tripOpen);
+    setTripOpen(!tripOpen);
+  };
+
   return (
     <div className="filterscontainer">
       <Link to={link} onClick={clickedLink} style={{ textDecoration: "none" }}>
@@ -81,10 +89,19 @@ function Filters({
           {icon}
         </div>
       </Link>
-      <div className="toroutes" onClick={(e) => filterNearest(e)}>
-        <h2>Nearest</h2>
-        <FaSearchLocation className="routeicon" />
-      </div>
+
+      {text === "Routes" ? (
+        <div className="toroutes" onClick={(e) => filterNearest(e)}>
+          <h2>Nearest</h2>
+          <FaSearchLocation className="routeicon" />
+        </div>
+      ) : (
+        <div className="toroutes" onClick={clickedTrip}>
+          {" "}
+          <h2>Plan trip</h2>
+          <FaMapMarked className="routeicon" />
+        </div>
+      )}
     </div>
   );
 }

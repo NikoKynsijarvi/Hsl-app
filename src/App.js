@@ -8,6 +8,7 @@ import Filters from "./components/Filters";
 import RoutesMap from "./components/RoutesMap";
 import AllRoutes from "./components/AllRoutes";
 import RouteInfo from "./components/RouteInfo";
+import TripPlanning from "./components/TripPlanning";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FlyToInterpolator } from "react-map-gl";
 import { FaRoute, FaBuilding, FaPlus, FaSearch } from "react-icons/fa";
@@ -16,6 +17,7 @@ function App() {
   const [station, setStation] = useState(null);
   const [allStations, setAllStations] = useState([]);
   const [navOpen, setNavOpen] = useState(false);
+  const [tripOpen, setTripOpen] = useState(false);
   const [allRoutes, setAllRoutes] = useState([]);
   const [route, setRoute] = useState(null);
   const [viewport, setViewport] = useState({
@@ -107,6 +109,7 @@ function App() {
                 setViewport={setViewport}
                 setAllRoutes={setAllRoutes}
               />
+              {tripOpen ? <TripPlanning /> : null}
               {route ? (
                 <RouteInfo
                   route={route}
@@ -138,6 +141,8 @@ function App() {
                 navOpen={navOpen}
                 text={"Stations"}
                 link={"/"}
+                tripOpen={tripOpen}
+                setTripOpen={setTripOpen}
                 icon={<FaBuilding className="routeicon" />}
               />
             ) : null}
