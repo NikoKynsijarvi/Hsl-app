@@ -16,6 +16,13 @@ const YOUR_TRIP = gql`
     ) {
       itineraries {
         duration
+        fares {
+          type
+          cents
+          components {
+            fareId
+          }
+        }
         legs {
           mode
           from {
@@ -57,14 +64,20 @@ function ToStation({ station, setToStation }) {
   );
 }
 
-function TripPlanning({ allStations, setTripOpen }) {
+function TripPlanning({
+  allStations,
+  setTripOpen,
+  trip,
+  setTrip,
+  setViewport,
+  viewport,
+}) {
   const [getTrip, result] = useLazyQuery(YOUR_TRIP);
-  const [trip, setTrip] = useState(null);
   const [fromSearch, setFromSearch] = useState("");
   const [toSearch, setToSearch] = useState("");
   const [fromStation, setFromStation] = useState(null);
   const [toStation, setToStation] = useState(null);
-  console.log(trip);
+
   const showTrip = () => {
     getTrip({
       variables: {
@@ -78,11 +91,19 @@ function TripPlanning({ allStations, setTripOpen }) {
 
   useEffect(() => {
     if (result.data) {
+      console.log(result.data);
       setTrip(result.data);
       setToSearch("");
       setFromSearch("");
+      setViewport({
+        ...viewport,
+        latitude: result.data.plan.itineraries[0].legs[0].from.lat,
+        longitude: result.data.plan.itineraries[0].legs[0].from.lon,
+        zoom: 13,
+      });
+      setTripOpen(false);
     }
-  }, [result]);
+  }, [result, setTrip, setTripOpen, setViewport, viewport]);
 
   const handleFromSearch = (event) => {
     setFromSearch(event.target.value);

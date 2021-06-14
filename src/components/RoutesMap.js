@@ -32,15 +32,6 @@ function RoutesMap({ viewport, setViewport, setAllRoutes, route }) {
   }
   setAllRoutes(result.data.routes);
 
-  if (route) {
-    console.log(
-      route.stops.map((r) => {
-        let coors = [r.lat, r.lon];
-        return coors;
-      })
-    );
-  }
-
   const style = { color: "red" };
   return (
     <div className="mapSection">

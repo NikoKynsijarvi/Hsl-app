@@ -20,6 +20,7 @@ function App() {
   const [tripOpen, setTripOpen] = useState(false);
   const [allRoutes, setAllRoutes] = useState([]);
   const [route, setRoute] = useState(null);
+  const [trip, setTrip] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 60.170556,
     longitude: 24.941463,
@@ -28,10 +29,6 @@ function App() {
     height: "500px",
     transitionDuration: 2000,
     transitionInterpolator: new FlyToInterpolator(),
-  });
-  const [tripCoords, setTripCoords] = useState({
-    from: { lat: null, lon: null },
-    to: { lat: null, lon: null },
   });
 
   useEffect(() => {
@@ -67,6 +64,10 @@ function App() {
                 <TripPlanning
                   allStations={allStations}
                   setTripOpen={setTripOpen}
+                  trip={trip}
+                  setTrip={setTrip}
+                  viewport={viewport}
+                  setViewport={setViewport}
                 />
               ) : null}
               <MapSection
@@ -74,8 +75,7 @@ function App() {
                 setAllStations={setAllStations}
                 setViewport={setViewport}
                 viewport={viewport}
-                setTripCoords={setTripCoords}
-                tripCoords={tripCoords}
+                trip={trip}
               />
               <div>
                 {station ? (
