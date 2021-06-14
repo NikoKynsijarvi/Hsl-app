@@ -361,6 +361,18 @@ body {
   align-items: center;
 }
 
+.tripinfo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  column-gap: 20px;
+}
+.tripicons {
+  width: 40px;
+  height: 40px;
+  color: #da0606;
+}
 /* ////////////////////////////////////////////////////////////// */
 
 @media only screen and (max-width: 600px) {

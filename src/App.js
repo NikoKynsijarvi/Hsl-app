@@ -9,9 +9,66 @@ import RoutesMap from "./components/RoutesMap";
 import AllRoutes from "./components/AllRoutes";
 import RouteInfo from "./components/RouteInfo";
 import TripPlanning from "./components/TripPlanning";
+import TripMap from "./components/TripMap";
+import TripInfo from "./components/TripInfo";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FlyToInterpolator } from "react-map-gl";
 import { FaRoute, FaBuilding, FaPlus, FaSearch } from "react-icons/fa";
+
+function StationsSection({
+  tripOpen,
+  setViewport,
+  viewport,
+  trip,
+  setStation,
+  setAllStations,
+  station,
+  allStations,
+  setTripOpen,
+  setTrip,
+  FlyToInterpolator,
+}) {
+  console.log(station);
+  return (
+    <div className="content">
+      {tripOpen ? (
+        <TripPlanning
+          allStations={allStations}
+          setTripOpen={setTripOpen}
+          trip={trip}
+          setTrip={setTrip}
+          viewport={viewport}
+          setViewport={setViewport}
+        />
+      ) : null}
+      <MapSection
+        setStation={setStation}
+        setAllStations={setAllStations}
+        setViewport={setViewport}
+        viewport={viewport}
+        trip={trip}
+      />
+      <div>
+        {station ? (
+          <StationInfo
+            station={station}
+            setStation={setStation}
+            setViewport={setViewport}
+            viewport={viewport}
+          />
+        ) : (
+          <AllStations
+            FlyToInterpolator={FlyToInterpolator}
+            stations={allStations}
+            setStation={setStation}
+            setViewport={setViewport}
+            viewport={viewport}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
 
 function App() {
   const [station, setStation] = useState(null);
@@ -59,43 +116,37 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
-            <div className="content">
-              {tripOpen ? (
-                <TripPlanning
-                  allStations={allStations}
-                  setTripOpen={setTripOpen}
-                  trip={trip}
-                  setTrip={setTrip}
-                  viewport={viewport}
+
+            {trip ? (
+              <div className="content">
+                <TripMap
                   setViewport={setViewport}
+                  viewport={viewport}
+                  trip={trip}
                 />
-              ) : null}
-              <MapSection
-                setStation={setStation}
-                setAllStations={setAllStations}
-                setViewport={setViewport}
-                viewport={viewport}
-                trip={trip}
-              />
-              <div>
-                {station ? (
-                  <StationInfo
-                    station={station}
-                    setStation={setStation}
-                    setViewport={setViewport}
-                    viewport={viewport}
-                  />
-                ) : (
-                  <AllStations
-                    FlyToInterpolator={FlyToInterpolator}
-                    stations={allStations}
-                    setStation={setStation}
-                    setViewport={setViewport}
-                    viewport={viewport}
-                  />
-                )}
+                <TripInfo
+                  setTrip={setTrip}
+                  setViewport={setViewport}
+                  viewport={viewport}
+                  trip={trip}
+                />
               </div>
-            </div>
+            ) : (
+              <StationsSection
+                station={station}
+                viewport={viewport}
+                setViewport={setViewport}
+                trip={trip}
+                tripOpen={tripOpen}
+                allStations={allStations}
+                setAllStations={setAllStations}
+                FlyToInterpolator={FlyToInterpolator}
+                setTrip={setTrip}
+                setTripOpen={setTripOpen}
+                setStation={setStation}
+              />
+            )}
+
             {navOpen ? (
               <Filters
                 FlyToInterpolator={FlyToInterpolator}

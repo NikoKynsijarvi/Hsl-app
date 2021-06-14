@@ -35,6 +35,8 @@ const YOUR_TRIP = gql`
           }
           to {
             name
+            lat
+            lon
           }
           trip {
             gtfsId
@@ -96,6 +98,12 @@ function TripPlanning({
       setToSearch("");
       setFromSearch("");
       setTripOpen(false);
+      setViewport({
+        ...viewport,
+        latitude: result.data.plan.itineraries[0].legs[0].from.lat,
+        longitude: result.data.plan.itineraries[0].legs[0].from.lon,
+        zoom: 8,
+      });
     }
   }, [result, setTrip, setTripOpen, setViewport, viewport]);
 
