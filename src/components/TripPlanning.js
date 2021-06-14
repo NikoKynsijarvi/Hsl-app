@@ -95,12 +95,6 @@ function TripPlanning({
       setTrip(result.data);
       setToSearch("");
       setFromSearch("");
-      setViewport({
-        ...viewport,
-        latitude: result.data.plan.itineraries[0].legs[0].from.lat,
-        longitude: result.data.plan.itineraries[0].legs[0].from.lon,
-        zoom: 13,
-      });
       setTripOpen(false);
     }
   }, [result, setTrip, setTripOpen, setViewport, viewport]);
