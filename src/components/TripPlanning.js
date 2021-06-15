@@ -117,12 +117,18 @@ function TripPlanning({
 
   const searchedStations = allStations.filter((element) => {
     const stationName = element.name;
-    return stationName.toLowerCase().indexOf(fromSearch.toLowerCase()) > -1;
+    return (
+      stationName.toLowerCase().indexOf(fromSearch.toLowerCase()) > -1 &&
+      element !== toStation
+    );
   });
 
   const destinations = allStations.filter((element) => {
     const stationName = element.name;
-    return stationName.toLowerCase().indexOf(toSearch.toLowerCase()) > -1;
+    return (
+      stationName.toLowerCase().indexOf(toSearch.toLowerCase()) > -1 &&
+      element !== fromStation
+    );
   });
 
   return (
