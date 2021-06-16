@@ -14,6 +14,30 @@ import TripInfo from "./components/TripInfo";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { FlyToInterpolator } from "react-map-gl";
 import { FaRoute, FaBuilding, FaPlus, FaSearch } from "react-icons/fa";
+import { FaTrain, FaBus, FaSubway } from "react-icons/fa";
+
+function Info() {
+  const busStyle = { color: "#0EB63B" };
+  const trainStyle = { color: "#FD5A1F" };
+  const subwayStyle = { color: "#EE1FFD" };
+  return (
+    <div className="infocontainer">
+      <h2>Station symbols</h2>
+      <div className="infostation">
+        <FaTrain style={trainStyle} />
+        <p>Train station</p>
+      </div>
+      <div className="infostation">
+        <FaBus style={busStyle} />
+        <p>Bus station</p>
+      </div>
+      <div className="infostation">
+        <FaSubway style={subwayStyle} />
+        <p>Subway station</p>
+      </div>
+    </div>
+  );
+}
 
 function StationsSection({
   tripOpen,
@@ -27,8 +51,9 @@ function StationsSection({
   setTripOpen,
   setTrip,
   FlyToInterpolator,
+  info,
+  setInfo,
 }) {
-  console.log(station);
   return (
     <div className="content">
       {tripOpen ? (
@@ -47,6 +72,8 @@ function StationsSection({
         setViewport={setViewport}
         viewport={viewport}
         trip={trip}
+        info={info}
+        setInfo={setInfo}
       />
       <div>
         {station ? (
@@ -78,6 +105,7 @@ function App() {
   const [allRoutes, setAllRoutes] = useState([]);
   const [route, setRoute] = useState(null);
   const [trip, setTrip] = useState(null);
+  const [info, setInfo] = useState(false);
   const [viewport, setViewport] = useState({
     latitude: 60.170556,
     longitude: 24.941463,
@@ -116,6 +144,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Navbar navOpen={navOpen} setNavOpen={setNavOpen} />
+            {info ? <Info /> : null}
 
             {trip ? (
               <div className="content">
@@ -144,6 +173,8 @@ function App() {
                 setTrip={setTrip}
                 setTripOpen={setTripOpen}
                 setStation={setStation}
+                setInfo={setInfo}
+                info={info}
               />
             )}
 

@@ -373,6 +373,46 @@ body {
   height: 40px;
   color: #da0606;
 }
+
+.infoicon {
+  color: rgb(2, 101, 230);
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  margin-left: 50px;
+  margin-top: 10px;
+  z-index: 3;
+}
+
+.infocontainer {
+  width: 40%;
+  height: 300px;
+  background-color: #fff;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 40%;
+  margin-top: 10%;
+  z-index: 4;
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.infostation {
+  display: flex;
+  padding: 3px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.infostation:hover {
+  filter: brightness(1.5);
+}
+
 /* ////////////////////////////////////////////////////////////// */
 
 @media only screen and (max-width: 600px) {

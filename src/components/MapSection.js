@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import ReactMapGl, { Marker } from "react-map-gl";
 import { gql, useQuery } from "@apollo/client";
-import { FaTrain, FaBus, FaSubway, FaLocationArrow } from "react-icons/fa";
+import {
+  FaTrain,
+  FaBus,
+  FaSubway,
+  FaLocationArrow,
+  FaInfoCircle,
+} from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import "./../index.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -43,8 +49,8 @@ function MapSection({
   setAllStations,
   viewport,
   setViewport,
-  lat,
-  lon,
+  setInfo,
+  info,
 }) {
   const result = useQuery(ALL_STATIONS);
   const [userLocation, setUserLocation] = useState({ show: false });
@@ -93,6 +99,7 @@ function MapSection({
         }}
       >
         <FaLocationArrow className="locationarrow" onClick={GetUserLocation} />
+        <FaInfoCircle className="infoicon" onClick={() => setInfo(!info)} />
         {result.data.stations.map((s) => (
           <Marker key={s.id} latitude={s.lat} longitude={s.lon}>
             <button

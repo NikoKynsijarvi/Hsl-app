@@ -48,6 +48,14 @@ const YOUR_TRIP = gql`
   }
 `;
 
+function Loading() {
+  return (
+    <div>
+      <h2>...loading</h2>
+    </div>
+  );
+}
+
 function FromStation({ station, setFromStation }) {
   return (
     <div
@@ -102,7 +110,7 @@ function TripPlanning({
         ...viewport,
         latitude: result.data.plan.itineraries[0].legs[0].from.lat,
         longitude: result.data.plan.itineraries[0].legs[0].from.lon,
-        zoom: 8,
+        zoom: 10,
       });
     }
   }, [result, setTrip, setTripOpen, setViewport, viewport]);
@@ -134,50 +142,55 @@ function TripPlanning({
   return (
     <div className="tripcontainer">
       <h1 className="routename">Plan your trip</h1>
-      <div className="searchcontainer">
-        <div className="fromtosearch">
-          From:
-          <input
-            value={fromSearch}
-            className="searchinput"
-            onChange={handleFromSearch}
-          />
-          <div className="filteredStations">
-            {searchedStations.length < 4
-              ? searchedStations.map((s) => (
-                  <FromStation
-                    key={s.id}
-                    station={s}
-                    setFromStation={setFromStation}
-                  />
-                ))
-              : null}
-          </div>
-        </div>
-
-        <div className="fromtosearch">
-          To:
-          <input
-            className="searchinput"
-            value={toSearch}
-            onChange={handleToSearch}
-          />
-          <div className="filteredStations">
-            {" "}
+      {result.loading ? (
+        <Loading />
+      ) : (
+        <div className="searchcontainer">
+          <div className="fromtosearch">
+            From:
+            <input
+              value={fromSearch}
+              className="searchinput"
+              onChange={handleFromSearch}
+            />
             <div className="filteredStations">
-              {destinations.length < 4
-                ? destinations.map((s) => (
-                    <ToStation
+              {searchedStations.length < 4
+                ? searchedStations.map((s) => (
+                    <FromStation
                       key={s.id}
                       station={s}
-                      setToStation={setToStation}
+                      setFromStation={setFromStation}
                     />
                   ))
                 : null}
             </div>
           </div>
+
+          <div className="fromtosearch">
+            To:
+            <input
+              className="searchinput"
+              value={toSearch}
+              onChange={handleToSearch}
+            />
+            <div className="filteredStations">
+              {" "}
+              <div className="filteredStations">
+                {destinations.length < 4
+                  ? destinations.map((s) => (
+                      <ToStation
+                        key={s.id}
+                        station={s}
+                        setToStation={setToStation}
+                      />
+                    ))
+                  : null}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
       <div className="tripreview">
         {fromStation ? <h3>{fromStation.name}</h3> : <p></p>}
         <FaArrowRight className="arrowright" />
