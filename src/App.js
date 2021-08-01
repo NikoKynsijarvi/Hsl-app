@@ -97,6 +97,12 @@ function StationsSection({
   );
 }
 
+function GetHeight() {
+  if (window.innerHeight < 800) {
+    return 100;
+  } else return 500;
+}
+
 function App() {
   const [station, setStation] = useState(null);
   const [allStations, setAllStations] = useState([]);
@@ -111,11 +117,12 @@ function App() {
     longitude: 24.941463,
     zoom: 11,
     width: "700px",
-    height: "500px",
+    height: `${GetHeight()}px`,
     transitionDuration: 2000,
     transitionInterpolator: new FlyToInterpolator(),
   });
 
+  console.log(viewport);
   useEffect(() => {
     route
       ? setViewport({

@@ -77,7 +77,6 @@ function ToStation({ station, setToStation }) {
 function TripPlanning({
   allStations,
   setTripOpen,
-  trip,
   setTrip,
   setViewport,
   viewport,
