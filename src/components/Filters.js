@@ -100,7 +100,7 @@ function Filters({
           </div>
           <div className="toroutes" onClick={clickedTrip}>
             {" "}
-            <h2>Plan trip</h2>
+            <h2>Trip planning</h2>
             <FaMapMarked className="routeicon" />
           </div>
         </div>

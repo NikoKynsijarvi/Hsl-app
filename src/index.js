@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import { Provider } from "react-redux";
 import App from "./App";
 import {
   ApolloClient,
@@ -8,6 +8,7 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
+import store from "./store";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -17,8 +18,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <Provider store={store}>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </Provider>,
   document.getElementById("root")
 );
