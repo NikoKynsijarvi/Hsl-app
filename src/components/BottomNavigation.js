@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import LocalParkingRoundedIcon from "@mui/icons-material/LocalParkingRounded";
-import RouteRoundedIcon from "@mui/icons-material/RouteRounded";
 import LocationCityRoundedIcon from "@mui/icons-material/LocationCityRounded";
 import { useDispatch } from "react-redux";
 import { setInitialViewport } from "../reducers/mapReducer";
@@ -14,12 +13,8 @@ function BottomNavigationBar() {
 
   useEffect(() => {
     if (window.location.href.includes("carparks")) setValue(1);
-    if (window.location.href.includes("routes")) setValue(2);
-    if (
-      !window.location.href.includes("carparks") &&
-      !window.location.href.includes("routes")
-    )
-      setValue(0);
+
+    if (!window.location.href.includes("carparks")) setValue(0);
   }, []);
 
   const setInitialState = () => {
@@ -54,14 +49,6 @@ function BottomNavigationBar() {
           onClick={setInitialState}
           to="/carparks"
           icon={<LocalParkingRoundedIcon />}
-        />
-
-        <BottomNavigationAction
-          label="Routes"
-          LinkComponent={Link}
-          onClick={setInitialState}
-          to="/routes"
-          icon={<RouteRoundedIcon />}
         />
       </BottomNavigation>
     </div>

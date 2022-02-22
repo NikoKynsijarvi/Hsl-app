@@ -12,6 +12,9 @@ const carParksReducer = (
     case "SET_CARPARK":
       state = { ...state, carPark: action.data };
       return state;
+    case "REMOVE_CARPARK":
+      state = { ...state, carPark: null };
+      return state;
     default:
       return state;
   }
@@ -28,6 +31,12 @@ export const setCarPark = (carPark) => {
   return {
     type: "SET_CARPARK",
     data: carPark,
+  };
+};
+
+export const removeCarPark = () => {
+  return {
+    type: "REMOVE_CARPARK",
   };
 };
 

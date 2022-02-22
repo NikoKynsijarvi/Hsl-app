@@ -22,7 +22,6 @@ function RoutePatternInfo({ route }) {
     return ChangeTimeFormat(s.scheduledArrival);
   });
 
-  console.log(stoptimes);
   return (
     <Paper
       elevation={1}
@@ -72,9 +71,6 @@ function StationInfoCard() {
     );
   }
 
-  const stationData = result.data.station;
-
-  console.log(stationData);
   return (
     <Card
       style={{

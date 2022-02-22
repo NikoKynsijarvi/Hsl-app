@@ -5,6 +5,7 @@ import { Box, Grid, CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import LocalParkingRoundedIcon from "@mui/icons-material/LocalParkingRounded";
 import ContentList from "./../components/ContentList";
+import CarParkInfoCard from "../components/CarParkInfoCard";
 
 function CarParksPage() {
   const carParks = useSelector((state) => state.carParks);
@@ -62,7 +63,11 @@ function CarParksPage() {
           <Map content={filteredCarParks} />
         </Grid>
         <Grid item lg={3} sm={12}>
-          <ContentList content={filteredCarParks} />
+          {carParks.carPark ? (
+            <CarParkInfoCard />
+          ) : (
+            <ContentList content={filteredCarParks} />
+          )}
         </Grid>
       </Grid>
     </Box>

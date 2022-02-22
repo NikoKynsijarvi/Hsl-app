@@ -30,7 +30,6 @@ function GetIcon(props) {
 function StationsPage() {
   const stations = useSelector((state) => state.stations);
   const filter = useSelector((state) => state.filter);
-  console.log(stations);
   if (!stations.stations.stations) {
     return (
       <Box
