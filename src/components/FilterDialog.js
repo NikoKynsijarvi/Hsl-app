@@ -141,6 +141,9 @@ const CarParksDialog = () => {
 function getRightDialog() {
   if (window.location.href.includes("carparks")) {
     return <CarParksDialog />;
+  }
+  if (window.location.href.includes("liveposition")) {
+    return <div></div>;
   } else {
     return <StationsDialog />;
   }

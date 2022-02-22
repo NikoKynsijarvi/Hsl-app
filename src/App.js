@@ -10,6 +10,7 @@ import { ALL_STATIONS, ALL_CARPARKS } from "./graphql";
 import { useQuery } from "@apollo/client";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LivePositionPage from "./pages/LivePositionPage";
 
 const theme = createTheme({
   palette: {
@@ -49,6 +50,9 @@ function App() {
           <Switch>
             <Route path="/carparks">
               <CarParksPage />
+            </Route>
+            <Route path="/liveposition">
+              <LivePositionPage />
             </Route>
             <Route path="/">
               <StationsPage />

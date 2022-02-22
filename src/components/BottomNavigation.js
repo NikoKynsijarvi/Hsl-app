@@ -50,6 +50,13 @@ function BottomNavigationBar() {
           to="/carparks"
           icon={<LocalParkingRoundedIcon />}
         />
+        <BottomNavigationAction
+          label="Live position"
+          LinkComponent={Link}
+          onClick={setInitialState}
+          to="/liveposition"
+          icon={<LocalParkingRoundedIcon />}
+        />
       </BottomNavigation>
     </div>
   );
