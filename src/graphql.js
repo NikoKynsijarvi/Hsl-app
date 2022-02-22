@@ -23,6 +23,7 @@ export const ALL_CARPARKS = gql`
       realtime
       lon
       lat
+      id
     }
   }
 `;
@@ -37,6 +38,27 @@ export const ALL_ROUTES = gql`
         gtfsId
         lat
         lon
+      }
+    }
+  }
+`;
+
+export const STATION_INFO = gql`
+  query ($id: String!) {
+    station(id: $id) {
+      name
+      vehicleMode
+      zoneId
+      stoptimesForPatterns {
+        pattern {
+          name
+          stops {
+            name
+          }
+        }
+        stoptimes {
+          scheduledArrival
+        }
       }
     }
   }

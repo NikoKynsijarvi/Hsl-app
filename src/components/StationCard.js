@@ -1,20 +1,22 @@
 import { Card, Typography, CardContent, Tooltip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { moveViewport } from "./../reducers/mapReducer";
+import { setStation } from "./../reducers/stationsReducer";
 
 function StationCard({ station }) {
   const dispatch = useDispatch();
   const viewport = useSelector((state) => state.viewport);
 
-  const setViewport = (lat, lon, event) => {
+  const setViewport = (station, event) => {
     event.preventDefault();
     const stationsViewport = {
       ...viewport,
-      latitude: lat,
-      longitude: lon,
+      latitude: station.lat,
+      longitude: station.lon,
       zoom: 13,
     };
     dispatch(moveViewport(stationsViewport));
+    dispatch(setStation(station));
   };
   return (
     <Card
@@ -22,7 +24,7 @@ function StationCard({ station }) {
         marginBottom: "1em",
         cursor: "pointer",
       }}
-      onClick={(e) => setViewport(station.lat, station.lon, e)}
+      onClick={(e) => setViewport(station, e)}
       elevation={2}
     >
       <CardContent>

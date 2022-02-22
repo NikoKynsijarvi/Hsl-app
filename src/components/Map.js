@@ -4,6 +4,8 @@ import ReactMapGl, { Marker } from "react-map-gl";
 import { useSelector, useDispatch } from "react-redux";
 import { moveViewport } from "./../reducers/mapReducer";
 import BottomNavigationBar from "./BottomNavigation";
+import { setStation } from "./../reducers/stationsReducer";
+import { setCarPark } from "./../reducers/carParksReducers";
 
 function Map({ content }) {
   const dispatch = useDispatch();
@@ -12,15 +14,26 @@ function Map({ content }) {
     dispatch(moveViewport(viewport));
   };
 
-  const setViewportToMarker = (lat, lon, event) => {
+  const setViewportToMarker = (content, event) => {
     event.preventDefault();
     const markerViewport = {
       ...viewport,
-      latitude: lat,
-      longitude: lon,
+      latitude: content.lat,
+      longitude: content.lon,
       zoom: 13,
     };
     dispatch(moveViewport(markerViewport));
+    getDispatch(content);
+  };
+
+  const getDispatch = (content) => {
+    if (window.location.href.includes("carpark")) dispatch(setCarPark(content));
+    if (
+      !window.location.href.includes("carpark") &&
+      !window.location.href.includes("routes")
+    ) {
+      dispatch(setStation(content));
+    }
   };
 
   return (
@@ -38,7 +51,7 @@ function Map({ content }) {
           <Marker key={s.id} latitude={s.lat} longitude={s.lon}>
             <Tooltip title={s.name}>
               <button
-                onClick={(e) => setViewportToMarker(s.lat, s.lon, e)}
+                onClick={(e) => setViewportToMarker(s, e)}
                 style={{ background: "none", border: "none" }}
               >
                 {s.icon}

@@ -73,7 +73,7 @@ function NavBar() {
 
   return (
     <div>
-      <AppBar position="sticky">
+      <AppBar position="sticky" color="primary">
         <Toolbar>
           <Tooltip title="Filters">
             <IconButton onClick={handleClickOpen}>

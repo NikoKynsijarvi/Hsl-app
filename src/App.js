@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import "./index.css";
 import StationsPage from "./pages/StationsPage";
+import CarParksPage from "./pages/CarParksPage";
 import { useDispatch } from "react-redux";
 import { initializeStations } from "./reducers/stationsReducer";
-import { ALL_STATIONS } from "./graphql";
+import { initializeCarParks } from "./reducers/carParksReducers";
+import { initializeFilters } from "./reducers/filterReducer";
+import { ALL_STATIONS, ALL_CARPARKS } from "./graphql";
 import { useQuery } from "@apollo/client";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -17,9 +21,9 @@ const theme = createTheme({
       success: "#4BFA4B",
     },
     secondary: {
-      light: "#fff176",
-      main: "#ffffa8",
-      dark: "#cabf45",
+      light: "#ffd149",
+      main: "#ffa000",
+      dark: "#c67100",
       contrastText: "#000",
     },
   },
@@ -28,17 +32,31 @@ const theme = createTheme({
 function App() {
   const dispatch = useDispatch();
   const stations = useQuery(ALL_STATIONS);
+  const carParks = useQuery(ALL_CARPARKS);
 
   useEffect(() => {
-    if (!stations.loading) dispatch(initializeStations(stations.data));
-  }, [stations, dispatch]);
+    if (!stations.loading && !carParks.loading) {
+      dispatch(initializeStations(stations.data));
+      dispatch(initializeCarParks(carParks.data));
+      dispatch(initializeFilters(carParks.data));
+    }
+  }, [stations, carParks, dispatch]);
   return (
-    <div>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <StationsPage />
-      </ThemeProvider>
-    </div>
+    <Router>
+      <div>
+        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Route path="/carparks">
+              <CarParksPage />
+            </Route>
+            <Route path="/">
+              <StationsPage />
+            </Route>
+          </Switch>
+        </ThemeProvider>
+      </div>
+    </Router>
   );
 }
 

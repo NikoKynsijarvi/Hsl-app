@@ -8,7 +8,8 @@ import DirectionsBusRoundedIcon from "@mui/icons-material/DirectionsBusRounded";
 import DirectionsRailwayRoundedIcon from "@mui/icons-material/DirectionsRailwayRounded";
 import SubwayRoundedIcon from "@mui/icons-material/SubwayRounded";
 import { CircularProgress } from "@mui/material";
-import StationsList from "./../components/StationsList";
+import ContentList from "../components/ContentList";
+import StationInfoCard from "./../components/StationInfoCard";
 
 function GetIcon(props) {
   const busStyle = { color: "#0EB63B", fontSize: "medium" };
@@ -29,8 +30,8 @@ function GetIcon(props) {
 function StationsPage() {
   const stations = useSelector((state) => state.stations);
   const filter = useSelector((state) => state.filter);
-
-  if (!stations.stations) {
+  console.log(stations);
+  if (!stations.stations.stations) {
     return (
       <Box
         style={{
@@ -46,7 +47,7 @@ function StationsPage() {
     );
   }
 
-  const stationsWithIcon = stations.stations
+  const stationsWithIcon = stations.stations.stations
     .map((s) => ({
       ...s,
       icon: GetIcon(s),
@@ -57,6 +58,10 @@ function StationsPage() {
 
   function filterStations() {
     const a = [];
+    if (stations.station) {
+      a.push(stations.station);
+      return a;
+    }
     if (filter.filterBus) {
       stationsWithIcon.map((s) => {
         if (s.vehicleMode === "BUS") a.push(s);
@@ -76,7 +81,6 @@ function StationsPage() {
         return s;
       });
     }
-    console.log(a);
     return a;
   }
 
@@ -90,7 +94,13 @@ function StationsPage() {
           <Map content={filteredStations} />
         </Grid>
         <Grid item lg={3} sm={12}>
-          <StationsList stations={filteredStations} />
+          {stations.station ? (
+            <div>
+              <StationInfoCard />
+            </div>
+          ) : (
+            <ContentList content={filteredStations} />
+          )}
         </Grid>
       </Grid>
     </Box>
