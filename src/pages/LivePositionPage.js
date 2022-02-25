@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import NavBar from "./../components/NavBar";
+import NavBar from "../components/NavBar";
 import ReactMapGl, { Marker } from "react-map-gl";
 import { useSelector, useDispatch } from "react-redux";
 import { moveViewport } from "./../reducers/mapReducer";
@@ -9,12 +9,13 @@ import BottomNavigationBar from "../components/BottomNavigation";
 var mqtt = require("mqtt");
 
 function LivePositionPage() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const dispatch = useDispatch();
   const viewport = useSelector((state) => state.viewport);
   const handleViewportChange = (viewport) => {
     dispatch(moveViewport(viewport));
   };
+  console.log(data);
 
   useEffect(() => {
     var client = mqtt.connect("wss://mqtt.hsl.fi:443/");
@@ -23,16 +24,20 @@ function LivePositionPage() {
       console.log("connected");
     });
 
-    client.subscribe("/hfp/v2/journey/ongoing/vp/tram/#");
+    client.subscribe("/hfp/v2/journey/ongoing/vp/ferry/#");
 
     client.on("message", function (topic, message, packet) {
       console.log("message is " + message);
       console.log("topic is " + topic);
+      var decoded = new TextDecoder("utf-8").decode(message);
+      setData(JSON.parse(decoded));
     });
+
     return () => {
       client.end();
     };
   }, []);
+  console.log(data);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
