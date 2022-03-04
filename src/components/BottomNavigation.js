@@ -13,8 +13,9 @@ function BottomNavigationBar() {
 
   useEffect(() => {
     if (window.location.href.includes("carparks")) setValue(1);
+    if (window.location.href.includes("live")) setValue(2);
 
-    if (!window.location.href.includes("carparks")) setValue(0);
+    if (window.location.href.includes("stations")) setValue(0);
   }, []);
 
   const setInitialState = () => {

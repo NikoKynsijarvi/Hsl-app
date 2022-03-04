@@ -6,16 +6,16 @@ import ReactMapGl, { Marker } from "react-map-gl";
 import { useSelector, useDispatch } from "react-redux";
 import { moveViewport } from "./../reducers/mapReducer";
 import BottomNavigationBar from "../components/BottomNavigation";
+import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 var mqtt = require("mqtt");
 
 function LivePositionPage() {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const viewport = useSelector((state) => state.viewport);
   const handleViewportChange = (viewport) => {
     dispatch(moveViewport(viewport));
   };
-  console.log(data);
 
   useEffect(() => {
     var client = mqtt.connect("wss://mqtt.hsl.fi:443/");
@@ -30,7 +30,9 @@ function LivePositionPage() {
       console.log("message is " + message);
       console.log("topic is " + topic);
       var decoded = new TextDecoder("utf-8").decode(message);
-      setData(JSON.parse(decoded));
+      const obj = JSON.parse(decoded);
+
+      setData([{ lat: obj.VP.lat, lon: obj.VP.long }]);
     });
 
     return () => {
@@ -53,6 +55,15 @@ function LivePositionPage() {
               handleViewportChange(viewport);
             }}
           >
+            {data.length > 0
+              ? data.map((d) => (
+                  <Marker latitude={d.lat} longitude={d.lon}>
+                    <DirectionsBoatIcon
+                      style={{ color: "red", height: "10px" }}
+                    />
+                  </Marker>
+                ))
+              : null}
             <BottomNavigationBar />
           </ReactMapGl>
         </Grid>
