@@ -9,6 +9,24 @@ import BottomNavigationBar from "../components/BottomNavigation";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 var mqtt = require("mqtt");
 
+const VehicleData = ({ data }) => {
+  return (
+    <Box>
+      <Grid
+        style={{
+          backgroundColor: "white",
+          height: 300,
+          zIndex: 999,
+          width: 300,
+          borderRadius: 20,
+          marginLeft: 100,
+          marginTop: 100,
+        }}
+      ></Grid>
+    </Box>
+  );
+};
+
 function LivePositionPage() {
   const [data, setData] = useState([]);
   const dispatch = useDispatch();
@@ -32,7 +50,7 @@ function LivePositionPage() {
       var decoded = new TextDecoder("utf-8").decode(message);
       const obj = JSON.parse(decoded);
 
-      setData([{ lat: obj.VP.lat, lon: obj.VP.long }]);
+      setData([{ lat: obj.VP.lat, lon: obj.VP.long, ...obj }]);
     });
 
     return () => {
@@ -55,6 +73,7 @@ function LivePositionPage() {
               handleViewportChange(viewport);
             }}
           >
+            <VehicleData data={data} />
             {data.length > 0
               ? data.map((d) => (
                   <Marker latitude={d.lat} longitude={d.lon}>

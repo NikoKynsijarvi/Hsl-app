@@ -3,6 +3,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import LocalParkingRoundedIcon from "@mui/icons-material/LocalParkingRounded";
 import LocationCityRoundedIcon from "@mui/icons-material/LocationCityRounded";
+import RadarIcon from "@mui/icons-material/Radar";
 import { useDispatch } from "react-redux";
 import { setInitialViewport } from "../reducers/mapReducer";
 import { Link } from "react-router-dom";
@@ -56,7 +57,7 @@ function BottomNavigationBar() {
           LinkComponent={Link}
           onClick={setInitialState}
           to="/liveposition"
-          icon={<LocalParkingRoundedIcon />}
+          icon={<RadarIcon />}
         />
       </BottomNavigation>
     </div>
