@@ -8,6 +8,7 @@ const filterReducer = (
     maxCapacity: 0,
     minCapacity: 0,
     spaceAvailableFilter: 100,
+    mqttTopicFilter: "FERRY",
   },
   action
 ) => {
@@ -27,7 +28,6 @@ const filterReducer = (
     case "INIT_FILTERS":
       let largestValue = 0;
       let minValue = 9999999;
-      console.log(action.data);
       action.data.carParks.map((a) => {
         if (a.maxCapacity > largestValue) {
           largestValue = a.maxCapacity;
@@ -52,6 +52,10 @@ const filterReducer = (
     case "PERCENTAGE_FILTER":
       state = { ...state, spaceAvailableFilter: action.data };
       return state;
+    case "MQTT_METRO":
+      return (state = { ...state, mqttTopicFilter: "METRO" });
+    case "MQTT_FERRY":
+      return (state = { ...state, mqttTopicFilter: "FERRY" });
     default:
       return state;
   }
@@ -99,6 +103,18 @@ export const setPercentageFilter = (value) => {
 export const filterSubway = () => {
   return {
     type: "FILTER_SUBWAY",
+  };
+};
+
+export const mqttMetroFilter = () => {
+  return {
+    type: "MQTT_METRO",
+  };
+};
+
+export const mqttFerryFilter = () => {
+  return {
+    type: "MQTT_FERRY",
   };
 };
 

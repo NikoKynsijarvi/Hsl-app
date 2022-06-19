@@ -10,27 +10,30 @@ import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 var mqtt = require("mqtt");
 
 function LivePositionPage() {
-  const [topic, setTopic] = useState("/hfp/v2/journey/ongoing/vp/ferry/#");
   const [data, setData] = useState([]);
-  const [isConnected, setIsConnected] = useState(false);
   const dispatch = useDispatch();
   const viewport = useSelector((state) => state.viewport);
+  const filter = useSelector((state) => state.filter);
 
   useEffect(() => {
     var client = mqtt.connect("wss://mqtt.hsl.fi:443/");
 
     client.on("connect", function () {
       console.log("connected");
-      setIsConnected(true);
+      setData([]);
+      if (filter.mqttTopicFilter === "METRO") {
+        client.subscribe("/hfp/v2/journey/ongoing/vp/metro/#");
+      } else {
+        client.subscribe("/hfp/v2/journey/ongoing/vp/ferry/#");
+      }
     });
 
-    client.subscribe(topic);
-
     client.on("message", function (topic, message) {
-      console.log("message is " + message);
       var decoded = new TextDecoder("utf-8").decode(message);
       const obj = JSON.parse(decoded);
+
       const newObject = { lat: obj.VP.lat, lon: obj.VP.long, ...obj };
+
       setData((curr) => {
         var array = [...curr];
         if (array.length === 0) {
@@ -56,7 +59,9 @@ function LivePositionPage() {
     return () => {
       client.end();
     };
-  }, []);
+  }, [filter]);
+
+  console.log(data);
 
   const handleViewportChange = (viewport) => {
     dispatch(moveViewport(viewport));

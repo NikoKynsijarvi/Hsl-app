@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 import { Container, Box, Slider, Typography, Stack } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -14,6 +18,8 @@ import {
   filterBus,
   filterRail,
   filterSubway,
+  mqttFerryFilter,
+  mqttMetroFilter,
 } from "./../reducers/filterReducer";
 
 const StationsDialog = () => {
@@ -138,12 +144,51 @@ const CarParksDialog = () => {
   );
 };
 
+const LivePositionDialog = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter.mqttTopicFilter);
+  const [value, setValue] = useState(filter);
+
+  useEffect(() => {
+    setValue(filter);
+  }, [filter]);
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    switch (event.target.value) {
+      case "FERRY":
+        dispatch(mqttFerryFilter());
+        break;
+      case "METRO":
+        dispatch(mqttMetroFilter());
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <FormControl>
+      <FormLabel id="demo-radio-buttons-group-label">Type</FormLabel>
+      <RadioGroup
+        aria-labelledby="demo-radio-buttons-group-label"
+        value={value}
+        name="radio-buttons-group"
+        onChange={handleChange}
+      >
+        <FormControlLabel value="FERRY" control={<Radio />} label="Ferry" />
+        <FormControlLabel value="METRO" control={<Radio />} label="Metro" />
+      </RadioGroup>
+    </FormControl>
+  );
+};
+
 function getRightDialog() {
   if (window.location.href.includes("carparks")) {
     return <CarParksDialog />;
   }
   if (window.location.href.includes("liveposition")) {
-    return <div></div>;
+    return <LivePositionDialog />;
   } else {
     return <StationsDialog />;
   }
