@@ -9,55 +9,58 @@ import BottomNavigationBar from "../components/BottomNavigation";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
 var mqtt = require("mqtt");
 
-const VehicleData = ({ data }) => {
-  return (
-    <Box>
-      <Grid
-        style={{
-          backgroundColor: "white",
-          height: 300,
-          zIndex: 999,
-          width: 300,
-          borderRadius: 20,
-          marginLeft: 100,
-          marginTop: 100,
-        }}
-      ></Grid>
-    </Box>
-  );
-};
-
 function LivePositionPage() {
+  const [topic, setTopic] = useState("/hfp/v2/journey/ongoing/vp/ferry/#");
   const [data, setData] = useState([]);
+  const [isConnected, setIsConnected] = useState(false);
   const dispatch = useDispatch();
   const viewport = useSelector((state) => state.viewport);
-  const handleViewportChange = (viewport) => {
-    dispatch(moveViewport(viewport));
-  };
 
   useEffect(() => {
     var client = mqtt.connect("wss://mqtt.hsl.fi:443/");
 
     client.on("connect", function () {
       console.log("connected");
+      setIsConnected(true);
     });
 
-    client.subscribe("/hfp/v2/journey/ongoing/vp/ferry/#");
+    client.subscribe(topic);
 
-    client.on("message", function (topic, message, packet) {
+    client.on("message", function (topic, message) {
       console.log("message is " + message);
-      console.log("topic is " + topic);
       var decoded = new TextDecoder("utf-8").decode(message);
       const obj = JSON.parse(decoded);
-
-      setData([{ lat: obj.VP.lat, lon: obj.VP.long, ...obj }]);
+      const newObject = { lat: obj.VP.lat, lon: obj.VP.long, ...obj };
+      setData((curr) => {
+        var array = [...curr];
+        if (array.length === 0) {
+          array.push(newObject);
+        } else {
+          let found = 0;
+          for (let i = 0; i < array.length; i++) {
+            if (array[i].VP.oper === newObject.VP.oper) {
+              if (array[i].VP.veh === newObject.VP.veh) {
+                found++;
+                array[i] = newObject;
+              }
+            }
+          }
+          if (found === 0) {
+            array.push(newObject);
+          }
+        }
+        return array;
+      });
     });
 
     return () => {
       client.end();
     };
   }, []);
-  console.log(data);
+
+  const handleViewportChange = (viewport) => {
+    dispatch(moveViewport(viewport));
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -73,10 +76,13 @@ function LivePositionPage() {
               handleViewportChange(viewport);
             }}
           >
-            <VehicleData data={data} />
             {data.length > 0
               ? data.map((d) => (
-                  <Marker latitude={d.lat} longitude={d.lon}>
+                  <Marker
+                    latitude={d.lat}
+                    longitude={d.lon}
+                    key={d.VP.oper + d.VP.veh}
+                  >
                     <DirectionsBoatIcon
                       style={{ color: "red", height: "10px" }}
                     />
