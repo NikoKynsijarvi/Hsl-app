@@ -1,7 +1,7 @@
 {
   "name": "hsl-app",
   "version": "0.2.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@apollo/client": "^3.3.19",
     "@emotion/react": "^11.7.1",
