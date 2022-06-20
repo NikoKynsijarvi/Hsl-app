@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar";
 import ReactMapGl, { Marker } from "react-map-gl";
 import { useSelector, useDispatch } from "react-redux";
 import { moveViewport } from "./../reducers/mapReducer";

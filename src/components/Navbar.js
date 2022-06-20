@@ -4,7 +4,7 @@ import AppBar from "@mui/material/AppBar";
 import { Divider, Tooltip } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
-import { setFilter } from "./../reducers/filterReducer";
+import { setFilter } from "../reducers/filterReducer";
 import { useDispatch } from "react-redux";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";

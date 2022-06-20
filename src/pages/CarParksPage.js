@@ -1,6 +1,6 @@
 import React from "react";
 import Map from "../components/Map";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/Navbar";
 import { Box, Grid, CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
 import LocalParkingRoundedIcon from "@mui/icons-material/LocalParkingRounded";

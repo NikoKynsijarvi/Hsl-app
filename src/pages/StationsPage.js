@@ -3,7 +3,7 @@ import Map from "../components/Map";
 import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import NavBar from "./../components/NavBar";
+import NavBar from "../components/Navbar";
 import DirectionsBusRoundedIcon from "@mui/icons-material/DirectionsBusRounded";
 import DirectionsRailwayRoundedIcon from "@mui/icons-material/DirectionsRailwayRounded";
 import SubwayRoundedIcon from "@mui/icons-material/SubwayRounded";
