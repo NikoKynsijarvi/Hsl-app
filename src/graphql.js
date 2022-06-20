@@ -28,6 +28,15 @@ export const ALL_CARPARKS = gql`
   }
 `;
 
+export const ROUTE_BY_TYPE = gql`
+  query RouteByType($transportModes: String!) {
+    routes(transportModes: $transportModes) {
+      longName
+      gtfsId
+    }
+  }
+`;
+
 export const ALL_ROUTES = gql`
   query {
     routes {

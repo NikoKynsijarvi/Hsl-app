@@ -7,7 +7,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { moveViewport } from "./../reducers/mapReducer";
 import BottomNavigationBar from "../components/BottomNavigation";
 import DirectionsBoatIcon from "@mui/icons-material/DirectionsBoat";
+import SubwayRoundedIcon from "@mui/icons-material/SubwayRounded";
 var mqtt = require("mqtt");
+
+function GetIcon(type) {
+  const ferryStyle = { color: "red", height: "12px" };
+  const subwayStyle = { color: "#EE1FFD", height: "12px" };
+  switch (type) {
+    case "FERRY":
+      return <DirectionsBoatIcon style={ferryStyle} />;
+    case "METRO":
+      return <SubwayRoundedIcon style={subwayStyle} />;
+    default:
+      return null;
+  }
+}
 
 function LivePositionPage() {
   const [data, setData] = useState([]);
@@ -88,9 +102,7 @@ function LivePositionPage() {
                     longitude={d.lon}
                     key={d.VP.oper + d.VP.veh}
                   >
-                    <DirectionsBoatIcon
-                      style={{ color: "red", height: "10px" }}
-                    />
+                    {GetIcon(filter.mqttTopicFilter)}
                   </Marker>
                 ))
               : null}

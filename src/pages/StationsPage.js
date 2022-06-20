@@ -46,6 +46,8 @@ function StationsPage() {
     );
   }
 
+  console.log(stations);
+
   const stationsWithIcon = stations.stations.stations
     .map((s) => ({
       ...s,
@@ -63,20 +65,32 @@ function StationsPage() {
     }
     if (filter.filterBus) {
       stationsWithIcon.map((s) => {
-        if (s.vehicleMode === "BUS") a.push(s);
+        if (s.vehicleMode === "BUS") {
+          if (filter.filterZones.includes(s.zoneId)) {
+            a.push(s);
+          }
+        }
         return s;
       });
     }
     if (filter.filterRail) {
       stationsWithIcon.map((s) => {
-        if (s.vehicleMode === "RAIL") a.push(s);
+        if (s.vehicleMode === "RAIL") {
+          if (filter.filterZones.includes(s.zoneId)) {
+            a.push(s);
+          }
+        }
         return s;
       });
     }
 
     if (filter.filterSubway) {
       stationsWithIcon.map((s) => {
-        if (s.vehicleMode === "SUBWAY") a.push(s);
+        if (s.vehicleMode === "SUBWAY") {
+          if (filter.filterZones.includes(s.zoneId)) {
+            a.push(s);
+          }
+        }
         return s;
       });
     }

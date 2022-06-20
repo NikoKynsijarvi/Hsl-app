@@ -20,12 +20,12 @@ import {
   filterSubway,
   mqttFerryFilter,
   mqttMetroFilter,
+  addZoneToFilter,
 } from "./../reducers/filterReducer";
 
 const StationsDialog = () => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.filter);
-
   const handleFilterChange = (event) => {
     switch (event.target.id) {
       case "bus":
@@ -37,44 +37,101 @@ const StationsDialog = () => {
       case "subway":
         dispatch(filterSubway());
         break;
-
+      case "a":
+        dispatch(addZoneToFilter("A"));
+        break;
+      case "b":
+        dispatch(addZoneToFilter("B"));
+        break;
+      case "c":
+        dispatch(addZoneToFilter("C"));
+        break;
+      case "d":
+        dispatch(addZoneToFilter("D"));
+        break;
       default:
         console.log(event.target.id);
     }
   };
   return (
-    <FormGroup>
-      <FormControlLabel
-        control={
-          <Switch
-            id="bus"
-            checked={filter.filterBus}
-            onChange={(e) => handleFilterChange(e)}
-          />
-        }
-        label="Bus"
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            id="rail"
-            onChange={(e) => handleFilterChange(e)}
-            checked={filter.filterRail}
-          />
-        }
-        label="Rail"
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            id="subway"
-            onChange={(e) => handleFilterChange(e)}
-            checked={filter.filterSubway}
-          />
-        }
-        label="Subway"
-      />
-    </FormGroup>
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <FormGroup>
+        <Typography variant="p3">Vehicle type</Typography>
+        <FormControlLabel
+          control={
+            <Switch
+              id="bus"
+              checked={filter.filterBus}
+              onChange={(e) => handleFilterChange(e)}
+            />
+          }
+          label="Bus"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              id="rail"
+              onChange={(e) => handleFilterChange(e)}
+              checked={filter.filterRail}
+            />
+          }
+          label="Rail"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              id="subway"
+              onChange={(e) => handleFilterChange(e)}
+              checked={filter.filterSubway}
+            />
+          }
+          label="Subway"
+        />
+      </FormGroup>
+      <FormGroup>
+        <Typography variant="p3">Zone</Typography>
+        <FormControlLabel
+          control={
+            <Switch
+              id="a"
+              checked={filter.filterZones.includes("A")}
+              onChange={(e) => handleFilterChange(e)}
+            />
+          }
+          label="A"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              id="b"
+              onChange={(e) => handleFilterChange(e)}
+              checked={filter.filterZones.includes("B")}
+            />
+          }
+          label="B"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              id="c"
+              onChange={(e) => handleFilterChange(e)}
+              checked={filter.filterZones.includes("C")}
+            />
+          }
+          label="C"
+        />
+        <FormControlLabel
+          control={
+            <Switch
+              id="d"
+              onChange={(e) => handleFilterChange(e)}
+              checked={filter.filterZones.includes("D")}
+            />
+          }
+          label="D"
+        />
+      </FormGroup>
+    </div>
   );
 };
 

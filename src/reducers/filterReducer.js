@@ -9,6 +9,7 @@ const filterReducer = (
     minCapacity: 0,
     spaceAvailableFilter: 100,
     mqttTopicFilter: "FERRY",
+    filterZones: ["A", "B", "C", "D"],
   },
   action
 ) => {
@@ -56,6 +57,17 @@ const filterReducer = (
       return (state = { ...state, mqttTopicFilter: "METRO" });
     case "MQTT_FERRY":
       return (state = { ...state, mqttTopicFilter: "FERRY" });
+    case "ADD_ZONE":
+      var isAlready = state.filterZones.includes(action.data);
+      if (!isAlready) {
+        var zones = [...state.filterZones];
+        zones.push(action.data);
+        return (state = { ...state, filterZones: zones });
+      } else {
+        var zonesFiltered = state.filterZones.filter((z) => z !== action.data);
+        return (state = { ...state, filterZones: zonesFiltered });
+      }
+
     default:
       return state;
   }
@@ -115,6 +127,13 @@ export const mqttMetroFilter = () => {
 export const mqttFerryFilter = () => {
   return {
     type: "MQTT_FERRY",
+  };
+};
+
+export const addZoneToFilter = (value) => {
+  return {
+    type: "ADD_ZONE",
+    data: value,
   };
 };
 

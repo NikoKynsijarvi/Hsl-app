@@ -45,7 +45,9 @@ function RoutePatternInfo({ route }) {
       >
         Stoptimes
       </Button>
-      {showTimePattern ? stoptimes.map((s) => <p>Arrives: {s}</p>) : null}
+      {showTimePattern
+        ? stoptimes.map((s) => <p key={s}>Arrives: {s}</p>)
+        : null}
     </Paper>
   );
 }
